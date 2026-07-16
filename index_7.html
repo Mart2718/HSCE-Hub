@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSCE Resource Hub — Dr. Marty Romero</title>
+<style>
+  :root{
+    --teal:#0F4C5C; --teal-dk:#0A3642; --orange:#E36414;
+    --ink:#222A2E; --mut:#6B7A80; --tint:#EDF4F5; --otint:#FDF0E6;
+    --cream:#FAF6F0; --card:#10404E;
+    --h:#FBF1E4; --sc:#E7F1F3; --cg:#EBF0EA; --e:#F9E7D8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Calibri,sans-serif;color:var(--ink);background:#fff;line-height:1.65}
+  a{color:var(--teal)}
+  a:hover{color:var(--orange)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* sticky nav */
+  nav.top{position:sticky;top:0;background:rgba(10,54,66,.97);backdrop-filter:blur(6px);z-index:50;border-bottom:1px solid rgba(255,255,255,.08)}
+  nav.top .wrap{display:flex;align-items:center;gap:18px;padding:12px 24px;flex-wrap:wrap}
+  nav.top .brand{color:var(--cream);font-family:Georgia,serif;font-size:16px;font-weight:700}
+  nav.top a{color:#9FC3CD;font-size:13px;text-decoration:none;font-weight:600;letter-spacing:.5px}
+  nav.top a:hover{color:var(--orange)}
+  nav.top .sp{color:#3a5560}
+  nav.top .cta{margin-left:auto;background:var(--orange);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px}
+  nav.top .cta:hover{background:#c95611;color:#fff}
+
+  /* hero */
+  header.hero{background:var(--teal-dk);color:var(--cream);padding:66px 0 58px}
+  .arc{font-size:13px;font-weight:700;letter-spacing:3px;color:#6FA8B8;margin-bottom:18px}
+  .arc .pw{color:var(--orange)}
+  header.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:44px;line-height:1.08;margin-bottom:14px}
+  header.hero .sub{font-size:19px;color:#9FC3CD;font-style:italic;max-width:720px;margin-bottom:10px}
+  header.hero .by{margin-top:22px;font-size:14px;color:#7FA9B4}
+  .rule{width:64px;height:3px;background:var(--orange);margin:24px 0 0}
+
+  /* sections */
+  section{padding:52px 0 12px;scroll-margin-top:70px}
+  .kick{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:8px}
+  h2.sec{font-family:Georgia,serif;font-size:29px;color:var(--teal);margin-bottom:8px;line-height:1.2}
+  .sec-lead{color:var(--mut);font-size:15.5px;margin-bottom:26px;max-width:780px}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{border-radius:12px;padding:22px 24px;border:1px solid #e3ebee;background:#fff;
+        box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.1);color:inherit}
+  .card .tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+  .card h3{font-family:Georgia,serif;font-size:19px;color:var(--teal);margin-bottom:8px;line-height:1.25}
+  .card p{font-size:14.5px;color:#3c464b;margin-bottom:14px;flex:1}
+  .card .go{font-size:13px;font-weight:700;color:var(--orange);align-self:flex-start}
+  .card .go::after{content:" →"}
+  .card.tinted-h{background:var(--h)} .card.tinted-sc{background:var(--sc)}
+  .card.tinted-cg{background:var(--cg)} .card.tinted-e{background:var(--e)}
+  #start .card{background:var(--tint)}
+  #foundations .card{background:var(--otint)}
+
+  /* narrative resource — expandable */
+  details.res{border:1px solid #dde7ea;border-radius:12px;margin:14px 0;background:#fff;overflow:hidden}
+  details.res summary{padding:18px 24px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px;background:var(--tint)}
+  details.res summary::-webkit-details-marker{display:none}
+  details.res summary .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:2px;display:block}
+  details.res summary h3{font-family:Georgia,serif;font-size:19px;color:var(--teal);margin:0;line-height:1.25}
+  details.res summary .chev{margin-left:auto;color:var(--teal);font-size:22px;transition:transform .2s}
+  details.res[open] summary .chev{transform:rotate(90deg)}
+  details.res .body{padding:22px 30px 30px}
+  details.res .body p{font-size:15px;margin:0 0 12px}
+  details.res .body h4{font-family:Georgia,serif;font-size:17px;color:var(--teal);margin:20px 0 8px}
+  details.res .body h5{font-family:Georgia,serif;font-size:15px;color:var(--ink);margin:14px 0 6px}
+  details.res .body ul,details.res .body ol{margin:0 0 12px 26px}
+  details.res .body li{font-size:14.5px;margin-bottom:5px}
+  details.res .body table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0 14px}
+  details.res .body th{background:var(--teal-dk);color:#fff;padding:8px 12px;text-align:left}
+  details.res .body td{padding:8px 12px;border:1px solid #dfe6e9}
+  details.res .body tr:nth-child(even) td{background:#f4f8f9}
+  details.res .body .note{border-left:4px solid var(--teal);background:var(--tint);padding:12px 16px;margin:14px 0;font-size:14.5px;border-radius:0 6px 6px 0}
+  details.res .body .note.amber{border-color:#c9832a;background:#fff7e6}
+  details.res .body .note.green{border-color:#16a34a;background:#f0fdf4}
+  details.res .body .note.blue{border-color:#1a73e8;background:#eef4fb}
+  details.res .body .note .lbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:4px;display:block}
+  details.res .body .ptc{border:2px solid var(--teal);border-radius:8px;overflow:hidden;margin:16px 0}
+  details.res .body .ptc-h{background:var(--teal-dk);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:8px 16px}
+  details.res .body .ptc table{width:100%;margin:0}
+  details.res .body .ptc td{padding:11px 14px;font-size:14.5px;vertical-align:top;border:none}
+  details.res .body .ptc td.lab{width:110px;background:var(--teal);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-align:center}
+  details.res .body .ptc tr:nth-child(2) td.lab{background:#12617a}
+  details.res .body .ptc tr:nth-child(3) td.lab{background:#0d3f4d}
+  details.res .body .ptc td.bd{background:var(--tint)}
+  details.res .body .vplace{background:#eef2f4;border:1px dashed #9fb3bb;border-radius:8px;padding:14px 18px;margin:14px 0;color:var(--mut);font-size:14px;font-style:italic}
+  details.res .body .vplace strong{color:var(--teal);font-style:normal}
+  details.res .body .vplace::before{content:"▶︎";color:var(--orange);margin-right:8px;font-style:normal}
+  details.res .body hr{border:none;border-top:1px solid #dfe6e9;margin:22px 0}
+  details.res .body .hsce-tie{background:var(--otint);border-radius:10px;padding:16px 22px;margin:0 0 20px;border-left:4px solid var(--orange)}
+  details.res .body .hsce-tie .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;display:block}
+  details.res .body .hsce-tie p{font-size:14.5px;margin:0;color:#40342c;font-style:italic}
+
+  .band{background:var(--tint);border-left:4px solid var(--teal);border-radius:8px;padding:16px 20px;margin:12px 0 0;font-size:14.5px;color:#2c3a40}
+  .band strong{color:var(--teal)}
+
+  footer{background:var(--teal-dk);color:#9FC3CD;padding:38px 0;margin-top:56px;font-size:14px}
+  footer a{color:#E8A16E}
+  footer .fw{font-family:Georgia,serif;color:var(--cream);font-size:20px;margin-bottom:8px}
+  @media(max-width:600px){header.hero h1{font-size:32px}nav.top .cta{display:none}}
+
+  /* voices: standalone quote cards + inline epigraphs */
+  .voices-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:8px}
+  .voice{background:var(--tint);border-radius:14px;padding:26px 28px 22px;border-left:5px solid var(--orange);display:flex;flex-direction:column}
+  .voice.dark{background:var(--teal-dk);color:var(--cream);border-left-color:var(--orange)}
+  .voice.dark .voice-body,.voice.dark .voice-src{color:#c8dde3}
+  .voice.dark .voice-cite{color:#fff}
+  .voice.dark .voice-tag{color:#8FC7D4}
+  .voice-tag{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+  .voice-body{font-family:Georgia,serif;font-size:16.5px;line-height:1.55;color:#2a3439;font-style:italic;margin-bottom:14px;flex:1}
+  .voice-body::before{content:"\201C";font-size:38px;color:var(--orange);line-height:0;vertical-align:-14px;margin-right:2px;font-style:normal}
+  .voice-cite{font-family:Georgia,serif;font-size:14px;font-weight:700;color:var(--teal);margin-bottom:4px}
+  .voice-src{font-size:12.5px;color:var(--mut);font-style:italic}
+  .voice-src a{color:var(--orange);text-decoration:none;font-style:normal;font-weight:600}
+  .voice-src a:hover{text-decoration:underline}
+
+  /* inline epigraph — sits at the top of a details.res body */
+  .epigraph{border-left:4px solid var(--orange);background:#fff9f2;padding:14px 20px;margin:0 0 20px;border-radius:0 6px 6px 0}
+  .epigraph.paired{border-left-style:double;border-left-width:6px}
+  .epigraph blockquote{margin:0 0 8px;font-family:Georgia,serif;font-size:15px;font-style:italic;color:#40342c;line-height:1.5}
+  .epigraph blockquote::before{content:"\201C";color:var(--orange);font-size:22px;font-style:normal;line-height:0;vertical-align:-8px;margin-right:1px}
+  .epigraph cite{display:block;font-size:12.5px;color:var(--mut);font-style:normal}
+  .epigraph cite strong{color:var(--teal);font-style:normal}
+  .epigraph cite a{color:var(--orange);text-decoration:none;font-weight:600}
+  .epigraph cite a:hover{text-decoration:underline}
+  .epigraph + .epigraph{margin-top:-10px}
+
+  /* section-level pull-frame used at top of Assignments */
+  .frame-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 28px}
+  @media(max-width:640px){.frame-pair{grid-template-columns:1fr}}
+  .frame-pair .epigraph{margin:0}
+
+  /* hero sub-quote (hooks line) */
+  header.hero .hooksline{margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-family:Georgia,serif;font-style:italic;font-size:16px;color:#9FC3CD;max-width:720px}
+  header.hero .hooksline cite{display:block;font-size:12.5px;color:#7FA9B4;font-style:normal;margin-top:6px}
+  header.hero .hooksline cite a{color:#E8A16E;text-decoration:none}
+  header.hero .hooksline cite a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <span class="brand">HSCE Hub</span>
+  <a href="#start">Start Here</a><span class="sp">·</span>
+  <a href="#tools">Tools</a><span class="sp">·</span>
+  <a href="#resources">Deep Reads</a><span class="sp">·</span>
+  <a href="#voices">Voices</a><span class="sp">·</span>
+  <a href="#examples">Assignments</a><span class="sp">·</span>
+  <a href="#foundations">Foundations</a>
+  <a class="cta" href="mailto:Romero_Martin@sac.edu">Reach out</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="arc">SEEING → BELONGING → LEARNING → <span class="pw">POWER</span></div>
+  <h1>The HSCE Resource Hub</h1>
+  <p class="sub">Everything from today, in one place — the framework, the tools, the deep reads, and real assignments in practice.</p>
+  <p class="by">Dr. Marty Romero &nbsp;·&nbsp; Santa Ana College</p>
+  <div class="rule"></div>
+  <p class="hooksline">"The classroom remains the most radical space of possibility in the academy."<cite>&mdash; bell hooks, <a href="https://www.goodreads.com/work/quotes/27745-teaching-to-transgress" target="_blank" rel="noopener"><em>Teaching to Transgress: Education as the Practice of Freedom</em></a> (1994)</cite></p>
+</div></header>
+
+<div class="wrap">
+
+<!-- START HERE -->
+<section id="start">
+  <div class="kick">Start here</div>
+  <h2 class="sec">The framework &amp; how we build together</h2>
+  <p class="sec-lead">Three anchors of today's session: the framework itself, the living document we grow together, and the collaborative space for the wider community of math educators.</p>
+  <div class="grid">
+    <a class="card" href="https://docs.google.com/document/d/1ZsMF4_0lCq5eP_vjkOrGcaPE5eAI2H9o/edit?usp=sharing&ouid=112221347916100125972&rtpof=true&sd=true" target="_blank" rel="noopener">
+      <span class="tag">Framework</span>
+      <h3>The HSCE Framework</h3>
+      <p>The full articulation — four pillars (Humanizing, Student-Centered, Cognitively Guided, Critically Empowering) and where each comes from.</p>
+      <span class="go">Open the document</span>
+    </a>
+    <a class="card" href="https://docs.google.com/document/d/1cy6-PknmlaYlwlFZGzu4NpmjPUv1t5OY/edit?usp=sharing&ouid=112221347916100125972&rtpof=true&sd=true" target="_blank" rel="noopener">
+      <span class="tag">Legacy Doc</span>
+      <h3>Collaboration &amp; Connection: Leaving a Legacy</h3>
+      <p>The living document we build together — add what you do under any pillar, and leave a wondering to carry out.</p>
+      <span class="go">Open the document</span>
+    </a>
+    <a class="card" href="https://padlet.com/romero_martin/the-online-math-educator-collective-i31f1jmjtcvqtsoo" target="_blank" rel="noopener">
+      <span class="tag">Community</span>
+      <h3>Online Math Educator Collective</h3>
+      <p>A shared Padlet for the wider community — drop a strategy, browse others, keep the conversation going long after today.</p>
+      <span class="go">Open the Padlet</span>
+    </a>
+  </div>
+</section>
+
+<!-- INTERACTIVE TOOLS -->
+<section id="tools">
+  <div class="kick">Interactive tools</div>
+  <h2 class="sec">Tools I built for the classroom</h2>
+  <p class="sec-lead">Small, focused web apps — each one an attempt to make a pillar tangible. All free, all yours to use or share.</p>
+  <div class="epigraph" style="margin-bottom:24px">
+    <blockquote>A lot of scientific evidence suggests that the difference between those who succeed and those who don't is not the brains they were born with, but their approach to life, the messages they receive about their potential, and the opportunities they have to learn.</blockquote>
+    <cite>&mdash; <strong>Jo Boaler</strong>, <a href="https://www.youcubed.org/resources/mathematical-mindsets-book/" target="_blank" rel="noopener"><em>Mathematical Mindsets</em></a> (2016)</cite>
+  </div>
+  <div class="grid">
+    <a class="card tinted-e" href="https://hopetoolkit.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Critically Empowering</span>
+      <h3>Hope Toolkit</h3>
+      <p>Facilitation routines to normalize struggle and amplify progress: Today's Win, Where Are You Stuck?, Pathways Thinking, The Social Gift.</p>
+      <span class="go">Open the tool</span>
+    </a>
+    <a class="card tinted-cg" href="https://memorythinkingattention.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Cognitively Guided</span>
+      <h3>Thinking Hub</h3>
+      <p>Cognitive science for educators — memory, thinking, and attention, one click from a class session.</p>
+      <span class="go">Open the tool</span>
+    </a>
+    <a class="card" href="https://tinyteacherapps.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Toolbox</span>
+      <h3>Tiny Teacher Apps</h3>
+      <p>A growing collection of small, single-purpose classroom apps built for real teaching moments.</p>
+      <span class="go">Open the collection</span>
+    </a>
+    <a class="card tinted-sc" href="https://sacstatc1000learninghub.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Student-Centered</span>
+      <h3>Statistics Learning Hub</h3>
+      <p>A student-facing hub for STAT C1000 — unit FAQs, interactive explorations, and support in one place.</p>
+      <span class="go">Open the hub</span>
+    </a>
+    <a class="card tinted-h" href="https://icebreakerprompts.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Humanizing</span>
+      <h3>Ice Breaker App</h3>
+      <p>Quick, warm prompts to open a class session and build belonging from the first minutes.</p>
+      <span class="go">Open the tool</span>
+    </a>
+    <a class="card" href="https://172fn1faq.netlify.app/" target="_blank" rel="noopener">
+      <span class="tag">Support</span>
+      <h3>FAQ Support Page</h3>
+      <p>A searchable FAQ page — the model behind the "FAQ Detective" move students use to work through confusion.</p>
+      <span class="go">Open the page</span>
+    </a>
+  </div>
+</section>
+
+<!-- DEEP READS / EMBEDDED RESOURCES -->
+<section id="resources">
+  <div class="kick">Deep reads</div>
+  <h2 class="sec">Practice resources — embedded for you</h2>
+  <p class="sec-lead">Longer resources on the pedagogical moves behind the framework. Expand any card to read the full piece here.</p>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">Critically Empowering</span><h3>The Architecture of Hope in the Mathematics Classroom</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="epigraph">
+        <blockquote>Just as concrete is bereft of the nutrients needed to nourish life, our schools are often bereft of the resources needed to educate young people... And yet, sometimes a determined rose can find its way through the concrete.</blockquote>
+        <cite>&mdash; <strong>Jeff Duncan-Andrade</strong>, <a href="https://www.hepg.org/her-home/issues/harvard-educational-review-volume-79,-issue-2/herarticle/hope-required-when-growing-roses-in-concrete_805" target="_blank" rel="noopener">"Note to Educators: Hope Required When Growing Roses in Concrete,"</a> <em>Harvard Educational Review</em> (2009)</cite>
+      </div>
+      <div class="hsce-tie"><span class="lbl">Why this matters</span><p>Hope is not sentiment; it's cognitive infrastructure. In a strictly cumulative discipline like mathematics — where one week's confusion blocks next week's work — hope, defined as goals + pathways + agency, is the psychological engine that keeps students engaging when the work gets hard.</p></div>
+      <h4>1. Defining Hope: Moving Beyond Passive Optimism</h4>
+      <p>In high-adversity pedagogical environments, particularly within the quantitative disciplines, hope is frequently dismissed as a vague or passive sentiment. But from the perspective of pedagogical research, hope is a rigorous cognitive tool essential for academic persistence and executive function. It is the psychological engine that drives a student to engage with complex problems rather than retreat into apathy.</p>
+      <p>Reframing hope as an active conviction — the belief that the future can be improved through deliberate action — is a prerequisite for effective teaching. Unlike optimism, which rests on the dispositional assumption that things will improve on their own, hope requires deliberate work: setting a goal, mapping pathways to it, and believing you can walk them.</p>
+      <h4>2. Snyder's Three Components — Made Concrete</h4>
+      <ul>
+        <li><strong>Goals</strong> — something worth moving toward. In class: naming what mastery looks like this week, not just "the exam."</li>
+        <li><strong>Pathways</strong> — the ability to see routes to get there. In class: making multiple study paths visible, so a stuck student sees a next step and not a dead end.</li>
+        <li><strong>Agency</strong> — the belief you can walk those routes. In class: accumulating small evidence of progress ("Today's Win") so students see themselves as capable of movement.</li>
+      </ul>
+      <h4>3. The Four Routines in the Hope Toolkit</h4>
+      <ul>
+        <li><strong>Today's Win</strong> — a 90-second close where every student names one small piece of progress. Agency evidence, accumulated.</li>
+        <li><strong>Where Are You Stuck?</strong> — normalizes the gap between where you are and where you're going, so it becomes navigable rather than shameful.</li>
+        <li><strong>Pathways Thinking</strong> — literally Snyder's second component as a classroom routine: when you're stuck, list three possible next steps before choosing one.</li>
+        <li><strong>The Social Gift</strong> — the receiving/giving frame. Hope is socially transmitted: your progress becomes evidence for a classmate that progress is possible.</li>
+      </ul>
+      <h4>4. Structural Expressions of Hope</h4>
+      <p>Hope isn't only in words — it's in structure. Growth-narrated finals rather than averaged ones, checkpoint arcs that give students three chances to see a trajectory, Level 1 written as a doorway rather than a verdict — each of these tells a student that Week 5 didn't disqualify them.</p>
+      <div class="note"><span class="lbl">Where to use it</span>Open <a href="https://hopetoolkit.netlify.app/" target="_blank" rel="noopener">hopetoolkit.netlify.app</a> for the facilitation cards. Best when introduced early and used weekly, so the routines become the room's habit rather than a special event.</div>
+      <div class="note amber"><span class="lbl">Companion resource</span>A one-page <a href="https://drive.google.com/file/d/11_bSylQX_xPcrlVFIgtNEH64bNsKTxLd/view?usp=drive_link" target="_blank" rel="noopener"><strong>Hope infographic</strong></a> — the pillars, the routines, and the classroom expressions in a single printable visual. Post it in your office, share it with a colleague, or send it home with students on day one.</div>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">Cognitively Guided</span><h3>Memory, Thinking &amp; Attention — a Faculty Reference</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="epigraph">
+        <blockquote>Memory is the residue of thought.</blockquote>
+        <cite>&mdash; <strong>Daniel Willingham</strong>, <a href="https://www.danielwillingham.com/why-dont-students-like-school.html" target="_blank" rel="noopener"><em>Why Don't Students Like School?</em></a> (2009)</cite>
+      </div>
+      <div class="epigraph">
+        <blockquote>Trust and belonging aren't soft &mdash; a student in threat response has less working memory available for learning. Culturally responsive teaching is brain-based teaching.</blockquote>
+        <cite>&mdash; adapted from <strong>Zaretta Hammond</strong>, <a href="https://ready4rigor.com/crt-and-the-brain/" target="_blank" rel="noopener"><em>Culturally Responsive Teaching and the Brain</em></a> (2015)</cite>
+      </div>
+      <div class="hsce-tie"><span class="lbl">Why this matters</span><p>"Memory is the residue of thought." Willingham's line is the design question in one sentence: what will students actually think hard about? Everything else in cognitively-guided design follows.</p></div>
+      <h4>The Bottleneck: Attention &amp; Working Memory</h4>
+      <p>Students remember what they think hard about. Attention and working memory are the true bottlenecks of learning, and they can only hold about four things at once. When a student is in threat response — anxious, dysregulated, feeling they don't belong — a chunk of that already-tiny working memory is spent on the threat, leaving less for the mathematics. This is why the Humanizing and Cognitively Guided pillars are mechanically linked, not just thematically.</p>
+      <h4>Retrieval Practice — Learning Is the Test</h4>
+      <p>The single most robust finding in cognitive science of learning: <em>retrieving</em> information strengthens memory far more than re-reading or re-highlighting it. Practically: short cumulative warm-ups, weekly low-stakes retrieval quizzes with feedback, and self-tested flashcards over passive review.</p>
+      <h4>Spacing — Distribute, Don't Cram</h4>
+      <p>The same total study time produces dramatically better retention when it's spaced out rather than massed. Design implication: return to old material regularly. Warm-ups that visit Week 3 in Week 8 are not a detour — they are the point.</p>
+      <h4>Interleaving — Mix, Don't Block</h4>
+      <p>Practicing similar-but-distinct problem types in a mixed order (rather than blocked one at a time) produces slower initial gains but far better long-term discrimination between problem types. The struggle to <em>tell</em> types apart is what builds transfer.</p>
+      <h4>The Fluency Illusion</h4>
+      <p>Students consistently prefer massed practice and re-reading — because those <em>feel</em> like mastery. Effective strategies feel harder in the moment. Which is why they must be designed <em>into</em> the course, not simply assigned as study advice.</p>
+      <div class="note"><span class="lbl">Where to use it</span>Open <a href="https://memorythinkingattention.netlify.app/" target="_blank" rel="noopener">memorythinkingattention.netlify.app</a> for the full faculty guide with move-by-move applications.</div>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">Metacognition</span><h3>Exam Wrappers — Turning Grades Into Learning</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="hsce-tie"><span class="lbl">Why this matters</span><p>Left alone, students see a grade and stop. Exam wrappers turn the graded exam into the beginning of learning, not the end — a structured metacognitive review that ties preparation to outcome.</p></div>
+      <h4>What are exam wrappers?</h4>
+      <p>Exam wrappers are short handouts that help students review their completed exam to understand their grade and to learn how their own behaviors contributed to the results — the adequacy of their preparation and how they might improve their strategies for the next one.</p>
+      <h4>Why use them?</h4>
+      <p>When students receive a graded exam, they typically focus only on the grade. Exam wrappers ask students to look through and review their exams in order to:</p>
+      <ul>
+        <li>Identify what parts of the exam they did <strong>well</strong> on — content areas or formats where they succeeded.</li>
+        <li>Identify what parts they did <strong>poorly</strong> on — where they failed to answer correctly or completely, and whether it was content or format.</li>
+        <li>Review their <strong>study approach</strong> — the resources and techniques they used, the time they spent, and the content they covered.</li>
+        <li>Look for <strong>patterns</strong> to guide future choices about coursework or exam prep.</li>
+      </ul>
+      <div class="note blue"><span class="lbl">The design move</span>Do it in class the day the exam is returned, and make it low-stakes credit for completion. Silence is what kills the routine — students need a structured prompt to move from "I got a C" to "I studied by re-reading, my hardest questions were the applied ones, next time I'll try practice problems."</div>
+      <div class="note amber"><span class="lbl">Ready-to-use template</span>Here is <a href="https://docs.google.com/document/d/1JAl5pZgRwFM0tNI7F2s77jqzHTlEr-E1/edit?usp=sharing&ouid=112221347916100125972&rtpof=true&sd=true" target="_blank" rel="noopener"><strong>an exam wrapper example</strong></a> I use with my students — copy it, adapt the questions to your discipline, and hand it out the day you return a graded exam.</div>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">Humanizing spine</span><h3>The "Notice, Wonder, Feel, Do" Framework</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="hsce-tie"><span class="lbl">Why this matters</span><p>A four-question protocol that expands the classic "Notice and Wonder" math routine to explicitly integrate emotional literacy and equity-minded action. It's HSCE in miniature — a single classroom move that runs Seeing → Belonging → Learning → Power.</p></div>
+      <h4>The Four Phases</h4>
+      <ul>
+        <li><strong>Notice</strong> — Students observe objective data, patterns, or structures. They state strictly factual observations without calculating or assuming yet. This lowers the barrier to entry for anxious learners. <em>(Window / Seeing.)</em></li>
+        <li><strong>Wonder</strong> — Students generate questions, hypotheses, or contextual inquiries. They drive the investigative process by identifying what information is missing or what relationships warrant deeper testing. <em>(Learning.)</em></li>
+        <li><strong>Feel</strong> — Students explicitly check in with their emotional responses to the numbers, to the socio-political context of the data, or to their own mathematical vulnerability (math anxiety, frustration, excitement). <em>(Mirror / Belonging.)</em></li>
+        <li><strong>Do</strong> — Students apply their mathematical insights to take meaningful action: proposing data-driven solutions, designing further studies, or engaging in community response. <em>(Door / Power.)</em></li>
+      </ul>
+      <h4>Why the "Feel" Step Matters</h4>
+      <p>Traditional math instruction treats emotion as noise — or worse, as evidence that the student "isn't a math person." Explicitly naming the affective response does two things: it validates that data can be personal (especially data about race, class, health, or place), and it teaches students that skilled quantitative thinkers <em>notice</em> their own emotional response and factor it into their reasoning rather than pretending it isn't there.</p>
+      <h4>Use it as a chat prompt engine</h4>
+      <p>The four questions are also the interaction engine of a well-designed lecture, meeting, or webinar: Notice what's in front of you. Wonder what it means. Feel what it evokes. Now — what do you want to do?</p>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">Cognitively Guided · Humanizing</span><h3>The "Showing Up" Advantage — Attendance as Equity</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="epigraph">
+        <blockquote>Community cultural wealth is an array of knowledge, skills, abilities, and contacts possessed by socially marginalized groups that often go unrecognized and unacknowledged &mdash; aspirational, navigational, social, linguistic, familial, and resistant capital.</blockquote>
+        <cite>&mdash; <strong>Tara J. Yosso</strong>, <a href="https://thrive.arizona.edu/sites/default/files/Whose%20culture%20has%20capital_A%20critical%20race%20theory%20discussion%20of%20community%20cultural%20wealth_1.pdf" target="_blank" rel="noopener">"Whose culture has capital? A critical race theory discussion of community cultural wealth,"</a> <em>Race, Ethnicity and Education</em> (2005)</cite>
+      </div>
+      <div class="epigraph">
+        <blockquote>It cannot be that the accident of where a child lives or the particulars of their birth determine their mathematics education.</blockquote>
+        <cite>&mdash; <strong>Uri Treisman</strong>, <a href="https://blog.mrmeyer.com/2013/uri-treismans-magnificent-speech-on-equity-race-and-the-opportunity-to-learn/" target="_blank" rel="noopener">Iris M. Carl Equity Address, NCTM Annual Conference</a> (2013)</cite>
+      </div>
+      <div class="hsce-tie"><span class="lbl">Why this matters</span><p>In a cumulative discipline like math, missing class doesn't create one gap — it creates a cascade. Attendance is the strongest single predictor of college grades in the research literature, and for many community college students, class is the <em>only</em> site of access to specialized support. This is the empirical case that showing up is a form of equity work.</p></div>
+      <h4>1. The Strategic Impact of Attendance</h4>
+      <p>In the community college ecosystem, class attendance is far more than administrative compliance; it is a fundamental driver of educational equity and student retention. In high-stakes environments like mathematics — where the curriculum is strictly cumulative and foundational — attendance acts as the primary bridge between a student's potential and their actual performance. For many students, the classroom is the only site of engagement where they can access specialized resources and mentorship.</p>
+      <h4>2. What the Research Shows</h4>
+      <p>Evidence from the landmark Credé et al. meta-analysis reveals that "showing up" is the single most powerful predictor of academic success, outperforming traditional metrics of aptitude or preparation:</p>
+      <table>
+        <thead><tr><th>Predictor</th><th>Correlation (r) with Grades</th><th>Comparative Impact</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Class Attendance</strong></td><td><strong>r ≈ 0.44</strong></td><td><strong>Strongest known predictor of college grades.</strong></td></tr>
+          <tr><td>High School GPA</td><td>r ≈ 0.30 – 0.40</td><td>A fixed baseline; less predictive than active attendance.</td></tr>
+          <tr><td>SAT / ACT Scores</td><td>r ≈ 0.30 – 0.40</td><td>Standardized measures with lower unique variance.</td></tr>
+          <tr><td>Study Habits / Time</td><td>r &lt; 0.44</td><td>Attendance provides a more observable measure of engagement.</td></tr>
+        </tbody>
+      </table>
+      <h4>3. Why It Matters for Equity</h4>
+      <p>Students from under-resourced backgrounds often have fewer alternative pathways to master material outside of class — no tutor at home, no peer network already fluent in college-level math, limited quiet study space. When they show up, they gain access to the very resources their better-resourced peers already have. When we make showing up easier — through community, through belonging, through a class that clearly matters to who they are becoming — we are doing equity work.</p>
+      <div class="note amber"><span class="lbl">The design move</span>Rather than punishing absence, design classes worth showing up to: rituals that only happen live, community-building that compounds over weeks, and a first five minutes that always contains something valuable. Attendance follows meaning.</div>
+      <div class="vplace"><strong><a href="https://drive.google.com/file/d/1hulsNWVWJqjttxMlq7HYYovVwSUeVEBJ/view?usp=sharing" target="_blank" rel="noopener">Watch: "The Showing Up Advantage"</a></strong> — a companion video walking through the research and the classroom implications for community college math.</div>
+    </div>
+  </details>
+</section>
+
+<!-- VOICES -->
+<section id="voices">
+  <div class="kick">Voices</div>
+  <h2 class="sec">The threads running through everything</h2>
+  <p class="sec-lead">Three thinkers whose work runs beneath all four pillars &mdash; not one voice for one idea, but the threads that hold the framework together. Every source is linked so you can follow the thread further.</p>
+  <div class="voices-grid">
+
+    <div class="voice dark">
+      <div class="voice-tag">The everyday gestures</div>
+      <p class="voice-body">These behaviors register because of their everydayness, because they seem to flow naturally from who a particular teacher is and therefore are experienced as real, authentic. They signal that you, the student, matter, that your development is valuable, that you belong here. Of course, the big things are important: curriculum, and pedagogy, and professional and political activities beyond the classroom. But a just and decent world is also created through the moment-by-moment interactions that foster growth and local community.</p>
+      <p class="voice-cite">Mike Rose</p>
+      <p class="voice-src">"The Everyday Gestures of Justice" &middot; <a href="http://mikerosebooks.blogspot.com/2018/04/the-everyday-gestures-of-justice.html" target="_blank" rel="noopener">Mike Rose's Blog, 2018</a></p>
+    </div>
+
+    <div class="voice">
+      <div class="voice-tag">The destination</div>
+      <p class="voice-body">Mathematics is the science of patterns, and to do mathematics is to engage in an art of understanding &mdash; but it is more than that. To do mathematics well is to be part of a flourishing life. It builds virtues: hopefulness, perseverance, community, and a kind of thinking that helps us know how to live.</p>
+      <p class="voice-cite">Francis Su</p>
+      <p class="voice-src">Adapted from <a href="https://www.francissu.com/mathematics-for-human-flourishing" target="_blank" rel="noopener"><em>Mathematics for Human Flourishing</em></a> &middot; Yale University Press, 2020</p>
+    </div>
+
+    <div class="voice">
+      <div class="voice-tag">The frame</div>
+      <p class="voice-body">Rehumanizing mathematics requires providing students with windows and mirrors onto the world &mdash; to see themselves and each other with dignity, and to imagine what mathematics might mean for their communities and their futures. It asks us to move beyond access and achievement to include identity and power.</p>
+      <p class="voice-cite">Rochelle Guti&eacute;rrez</p>
+      <p class="voice-src">On <a href="https://www.nctm.org/Publications/journal-for-research-in-mathematics-education/2018/Introduction_-Building-Research-on-Equity-and-Access-in-Mathematics-Education/" target="_blank" rel="noopener">Rehumanizing Mathematics</a> &middot; drawing on Rudine Sims Bishop's Mirrors, Windows &amp; Sliding Glass Doors (1990)</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ASSIGNMENT EXAMPLES -->
+<section id="examples">
+  <div class="kick">The framework in practice</div>
+  <h2 class="sec">Assignment examples</h2>
+  <p class="sec-lead">Real assignments from my STAT C1000 course — each one an attempt to <em>live</em> the framework, not just describe it. Expand any card to read the full design.</p>
+
+  <div class="frame-pair">
+    <div class="epigraph paired">
+      <blockquote>Grades should describe learning, not behavior, compliance, or home resources. Making our grading practices more accurate and bias-resistant is the most important equity work.</blockquote>
+      <cite>&mdash; <strong>Joe Feldman</strong>, <a href="https://www.gse.harvard.edu/ideas/ed-magazine/19/05/grade-expectations" target="_blank" rel="noopener"><em>Grading for Equity</em></a> (2018) &mdash; on <em>how</em> we assess</cite>
+    </div>
+    <div class="epigraph paired">
+      <blockquote>Assessment is authentic when it is real. Authentic work is what big people actually do &mdash; public, done for a real audience, educative in the doing.</blockquote>
+      <cite>&mdash; <strong>Grant Wiggins &amp; Jay McTighe</strong>, <a href="https://www.edutopia.org/grant-wiggins-assessment" target="_blank" rel="noopener">Understanding by Design tradition</a> &mdash; on <em>why</em> we assess</cite>
+    </div>
+  </div>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">STAT C1000 · Final Project · 100 pts</span><h3>Ask Questions About the World — An AI-Powered Research Project</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="hsce-tie"><span class="lbl">The framework in practice</span><p>The full research cycle as a humanizing, AI-visible assessment: students ask a question they actually care about (Student-Centered), verify AI against real evidence rather than trusting it (Cognitively Guided &amp; Critically Empowering), and present to a real audience of peers (Humanizing). AI is required — but the student, not the tool, is the researcher.</p></div>
+      <h4>What is this project?</h4>
+      <p>Your final project puts everything you've learned this semester into practice. You will ask a real question about the world, investigate it using AI research tools, verify the evidence behind it, identify how researchers actually tested their claims, and share your findings with the class.</p>
+      <div class="ptc"><div class="ptc-h">Purpose · Task · Criteria</div><table><tbody>
+        <tr><td class="lab">PURPOSE</td><td class="bd">Bring together your statistical literacy and AI literacy by moving through the full research cycle — asking a precise question, investigating it critically, connecting it to real evidence, synthesizing what the data says, and communicating your findings to a real audience.</td></tr>
+        <tr><td class="lab">TASK</td><td class="bd">Choose a real question you want answered. Use AI deep research to investigate it. Track down at least one real study. Identify the statistical test used. Synthesize the best current answer. Present your findings in a short video and AI-assisted visual posted to the class discussion board.</td></tr>
+        <tr><td class="lab">CRITERIA</td><td class="bd">Complete all 5 tasks. Your work shows genuine engagement with real evidence — not just a summary of what AI said. Your presentation is clear, concise, and worthy of your classmates' time. Total: 100 points.</td></tr>
+      </tbody></table></div>
+
+      <h4>Task 1 — Ask &amp; Refine Your Question <span style="color:var(--mut);font-size:14px">(15 pts)</span></h4>
+      <p>Good research starts with a good question. Write your <strong>initial question</strong> exactly as you first thought of it. Then, after some early exploration, write your <strong>refined question</strong>. In 2–3 sentences, explain what changed and why.</p>
+      <p><strong>Three paths to a question:</strong> use an example question as-is, adapt one to your context, or create your own from something you've genuinely wondered about — a debate, something in the news, your own life.</p>
+      <p><strong>Sample questions:</strong> Should the federal minimum wage be raised? &nbsp;·&nbsp; Is college still worth the cost? &nbsp;·&nbsp; At what age should kids have their own smartphone? &nbsp;·&nbsp; Does social media harm teenage mental health? &nbsp;·&nbsp; How does immigration affect local economies?</p>
+      <div class="note green"><span class="lbl">What makes a good question?</span>Ones where the answer isn't obvious and where data could actually change your mind. Avoid pure-values questions ("Should X be legal?"). Aim for questions where research exists and evidence can move the conversation forward.</div>
+
+      <h4>Task 2 — The AI Research Journey <span style="color:var(--mut);font-size:14px">(20 pts)</span></h4>
+      <p>Use an AI deep research tool (Perplexity, Gemini Deep Research, ChatGPT Search, Claude with web search) to investigate your refined question. Write a strong opening prompt that includes your exact question, a request for real studies, and a request to note where evidence is mixed.</p>
+      <div class="note blue"><span class="lbl">Example prompt</span><em>"I'm researching the question: [your question]. Please give me a research-based overview. Include references to actual studies if possible, note where the evidence is strong vs. mixed, and tell me what major points are still debated."</em></div>
+      <p>Then push deeper: "What do researchers who disagree say?" · "Name a specific study — authors, year, where published." · "What are the limitations of the studies you mentioned?"</p>
+      <p><strong>Answer three prompts:</strong> what tool did you use and what did you ask (5 pts) · what were the 3–4 key findings, in your own words (10 pts) · what made you want to verify a specific claim (5 pts).</p>
+
+      <h4>Task 3 — Finding the Evidence <span style="color:var(--mut);font-size:14px">(25 pts)</span></h4>
+      <p>From your AI research, identify at least <strong>one real study</strong>, verify it exists, and answer three parts about the statistical test used. No calculations required.</p>
+      <ul>
+        <li><strong>3a. The Study (10 pts)</strong> — Name it (title, authors, year), explain what the researchers were investigating, include a link or source.</li>
+        <li><strong>3b. The Statistical Test (10 pts)</strong> — What test did they use? What were they comparing or relating? What did the result mean for their hypothesis? (t-test, chi-square, linear regression, ANOVA, z-test for proportions, etc.)</li>
+        <li><strong>3c. The Verification (5 pts)</strong> — How did you confirm the study is real?</li>
+      </ul>
+      <div class="note amber"><span class="lbl">Having trouble finding the study?</span>AI sometimes cites studies that don't exist — that's part of the lesson. If you can't verify one, try another from the output, search Google Scholar, or use the SAC library databases. A systematic review or meta-analysis is also acceptable and often more accessible.</div>
+
+      <h4>Task 4 — The Best Answer <span style="color:var(--mut);font-size:14px">(20 pts)</span></h4>
+      <p>In a short paragraph (4–6 sentences), answer your refined question. Frame it around what the current weight of evidence suggests — not personal opinion, and not a definitive truth. Grounded in evidence, includes appropriate uncertainty ("research suggests," "the evidence is mixed"), takes a clear position while acknowledging what we still don't know.</p>
+      <div class="note blue"><span class="lbl">The point</span>Research rarely gives us a simple yes or no. A strong answer names what most evidence points to, acknowledges where research is limited or contested, and resists the urge to overstate. That's not weakness — that's statistical honesty.</div>
+
+      <h4>Task 5 — Present Your Findings <span style="color:var(--mut);font-size:14px">(20 pts)</span></h4>
+      <p>Choose <strong>Option A (video, up to 3 min)</strong> or <strong>Option B (AI-assisted visual — infographic, one-page HTML, slides)</strong>. Both must cover all five required elements:</p>
+      <ol>
+        <li><strong>Your question</strong> — original and refined, and why you cared about it</li>
+        <li><strong>What you found</strong> — key findings, the study you verified, the statistical test</li>
+        <li><strong>The best answer</strong> — the weight of evidence, with appropriate uncertainty</li>
+        <li><strong>A visual aid</strong> — chart, graph, table, slide, or infographic representing your findings</li>
+        <li><strong>What you're thinking about now</strong> — one new question this raised, and what you'd explore next</li>
+      </ol>
+      <div class="note green"><span class="lbl">AI use policy</span>AI is a required part of this project — for research, for building your visual, and for helping you think. The standard is not whether you used AI, but whether <em>you</em> are driving the work. Your question, your verified evidence, your synthesis, and your voice must be clearly present throughout. AI is your tool. You are the researcher.</div>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">STAT C1000 · AI-Enabled Quiz</span><h3>Calling BS (or Not) — The AI Claim Audit</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="hsce-tie"><span class="lbl">The framework in practice</span><p>Students bring their own real claim (Student-Centered), test it against two AI systems and an independent source (Critically Empowering &amp; Cognitively Guided), and reason out loud on video for an audience of peers (Humanizing). The assessment is AI-visible by design: the skill isn't avoiding AI, it's auditing it.</p></div>
+      <div class="vplace"><strong>Instructor example video</strong> — a worked "Calling BS" audit (investigating whether creatine is "the secret to fat loss") lives in the Canvas version.</div>
+
+      <h4>Purpose — why we're doing this</h4>
+      <p>Part 1 asked you to evaluate AI explanations using provided examples. Part 2 raises the stakes — you bring your own real-world claim, test it against what AI tells you, and reason through your findings out loud, for an audience of peers. You'll practice:</p>
+      <ul>
+        <li><strong>Investigating</strong> a data-driven claim from your own experience</li>
+        <li><strong>Evaluating</strong> AI-generated responses rather than accepting them at face value</li>
+        <li><strong>Judging</strong> the credibility and limitations of statistical evidence and its sources</li>
+        <li><strong>Communicating</strong> statistical reasoning out loud, making your thinking visible</li>
+        <li><strong>Applying</strong> skepticism and verification habits to data claims beyond this course</li>
+      </ul>
+      <div class="note amber"><span class="lbl">Why this matters</span>Daniel Kahneman spent a career showing that reasoning errors we study here — ignoring base rates, confusing correlation with causation, missing what is being left out — are not signs of low intelligence. They are systematic patterns built into how all human minds process information, which means they also show up regularly in AI trained on human text. Spotting them is a learned skill — and this assignment is practice.</div>
+
+      <h4>Step 1: Choose a claim of interest</h4>
+      <p>Think of a <strong>data-driven claim</strong> you've encountered — on social media, TV, a billboard, a news site. Any assertion that uses numbers, statistics, or research to make a point.</p>
+      <div class="note blue"><span class="lbl">Example claims — understand the concept, then find your own</span>
+        <ul style="margin-bottom:0">
+          <li><strong>Health:</strong> "Drinking diet soda causes weight gain."</li>
+          <li><strong>Economics:</strong> "The average American has gotten significantly wealthier over the last 20 years."</li>
+          <li><strong>Criminal justice:</strong> "City X is the most dangerous city in America."</li>
+          <li><strong>Nutrition:</strong> "Eating chocolate lowers your risk of heart disease."</li>
+        </ul>
+      </div>
+      <p>A simple way to ask an AI: <em>"I keep hearing that [your claim]. Is that actually true? What does the evidence say — and how strong is it?"</em> Optional follow-ups: "Does this prove one thing causes the other, or are they just connected?" · "What's the actual source — is there a real study behind it?" · "Who was studied? Does that include people like me?" · "Compared to what? Is there a baseline?"</p>
+
+      <h4>Step 2: Test the claim — compare, audit, verify</h4>
+      <div class="note amber">Your target is the <strong>claim itself</strong> — is it actually true? The AI responses are your starting leads, not the final word.</div>
+      <p><strong>First, compare two AI systems.</strong> Do they tell the same story or different stories? Where do they agree, and where do they diverge? A divergence — or an answer that sounds overconfident or cites something oddly specific — is your <strong>BS flag</strong>.</p>
+      <p><strong>Next, dig in with one or both lenses:</strong></p>
+      <table>
+        <thead><tr><th>The Reasoning Lens — does the logic hold up?</th><th>The Source Lens — is the evidence real?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cause, or just connection?</strong> Did the AI treat "these two things move together" as "one causes the other"?</td><td><strong>Does the source exist?</strong> Can you find the study or dataset the AI named? If not, that's a finding — AI sometimes invents citations.</td></tr>
+          <tr><td><strong>What's missing?</strong> An outside factor the AI ignored? (Ice cream sales and drowning rates both rise in summer — heat drives both.)</td><td><strong>Does it say what the AI said?</strong> Skim the abstract. Does the real source support the claim, or did the AI stretch it?</td></tr>
+          <tr><td><strong>Compared to what?</strong> Did a big-sounding number arrive with a baseline, or without one?</td><td><strong>Who was studied — and who wasn't?</strong> A solid study can still be wrongly applied to people it never looked at.</td></tr>
+        </tbody>
+      </table>
+      <div class="note blue"><span class="lbl">Finally, verify</span>Back your conclusion with <strong>one independent source you found yourself</strong>: the open web (.gov, .edu, news, medical organizations), Google Scholar, or a library database. "It sounded confident" isn't verification; "I checked it against something outside the AIs" is. One solid source, done honestly, is enough.</div>
+
+      <h4>Step 3: Record your video</h4>
+      <p>In under 4 minutes, walk through: (1) the real-world claim you chose; (2) your prompt strategy and the two AI systems you asked; (3) how the two responses compared and what made you suspicious; (4) your audit and the independent source you found; (5) your two-part conclusion — is the claim true, false, or oversimplified, and did the AIs help, mislead, hallucinate, or get it right?</p>
+
+      <h4>Step 4: End with your takeaway</h4>
+      <p>The final thing you say on camera, and the most important. Different from your conclusion (about <em>this</em> claim), your takeaway is the habit you keep for <em>every</em> claim from here on. End with <strong>one core warning sign or verification habit</strong> you will personally carry forward — specific to what you actually discovered, not a generic tip about "checking your sources."</p>
+
+      <h4>Peer learning community</h4>
+      <p>Watch at least <strong>two classmates' videos</strong>. Leave a peer response to one whose video used a completely different lens or topic than yours — share how their audit exposed an AI bias you hadn't considered, taught you a new way to validate data, or what's now circling in your head. 2–3 sentences, so they know they made an impact.</p>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">STAT C1000 · Extra Credit · 5 pts</span><h3>Navigating Uncertainty &amp; The Probability Tracker</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="hsce-tie"><span class="lbl">The framework in practice</span><p>Conditional probability turned into a lived habit: students track a real uncertain event in their own life (Student-Centered) and connect it to a great thinker on decision-making (Cognitively Guided). The design honors curiosity and self-observation over pressure — "the goal is to observe your own thinking, not to add stress."</p></div>
+
+      <h4>Purpose</h4>
+      <p>One of the core concepts in this course is <strong>conditional probability</strong> — the idea that the likelihood of an event changes as new information becomes available. In formal notation, P(A|B) expresses the probability of event A given that B has already occurred. But conditional probability is not just a formula. It is a description of something you do every day: updating your beliefs when new evidence arrives.</p>
+      <p>This assignment asks you to experience that process in real time — tracking an uncertain event from your own life and watching how your probability estimates shift as new information comes in.</p>
+
+      <h4>Choose one thinker</h4>
+      <p>Listen to one required resource before completing the tracker.</p>
+
+      <h5>Daniel Kahneman — The Science of Why Our Minds Mislead Us</h5>
+      <p>A Nobel Prize-winning psychologist who studied how minds actually make decisions. Our brains rely on a fast, intuitive System 1 and a slower, deliberate System 2 — and System 1's shortcuts produce predictable, systematic errors that affect everyone, including experts and AI trained on human text.</p>
+
+      <h5>Julia Galef — The Mindset That Lets You See Clearly</h5>
+      <p>Why do smart people keep believing things that are wrong? Because most of us approach beliefs like <em>soldiers</em> — defending what we already think. The alternative is the <strong>Scout Mindset</strong>: genuinely wanting to know what's out there, even when it challenges what you hoped to find.</p>
+
+      <h5>Dan Levy — Putting Numbers on Your Beliefs</h5>
+      <p>A Harvard Kennedy School professor who argues the most powerful shift in thinking is expressing beliefs as specific percentages rather than vague feelings of "probably." Assigning a concrete probability — and updating it when new information arrives — is a learnable skill. Sound familiar? It's conditional probability as a daily habit.</p>
+
+      <h5>Annie Duke — Good Decisions, Bad Outcomes, and the Difference</h5>
+      <p>A former World Series of Poker champion and cognitive psychology researcher: every decision is a bet under uncertainty, and you cannot judge a decision by how it turned out. A good decision can produce a bad outcome; a bad decision can get lucky. Her contribution: <strong>separate decision quality from outcome quality.</strong></p>
+
+      <h4>Step 1 — Choose your thinker</h4>
+      <p>Listen to your chosen resource and take notes on: the thinker's core argument about decision-making or belief-updating; one idea that surprised or challenged you; and one connection you see to what we've covered in class.</p>
+
+      <h4>Step 2 — Choose an event</h4>
+      <p>Identify an <strong>uncertain event</strong> in your own life that will resolve within the next week. Choose something you care about — but nothing overly stressful or high-stakes. The goal is to observe your own thinking, not to add pressure.</p>
+      <div class="note blue"><span class="lbl">Example events</span>"I will get my shift covered this weekend." · "My package will arrive before Thursday." · "I will score 85% or higher on this week's exam." · "My favorite team will win on Saturday."</div>
+
+      <h4>Step 3 — The daily tracker</h4>
+      <p>Each day, record your <strong>subjective probability</strong> (0–100%) that your event will happen — a minimum of <strong>5 entries over 7 days</strong>. Next to each estimate, write exactly what new data or observation caused you to adjust up, down, or hold steady.</p>
+      <div class="note blue"><span class="lbl">Conditional probability in action</span>Each time you update based on new information, you are doing exactly what P(A|B) describes — adjusting the probability of event A given new evidence B. That moment of updating <em>is</em> the statistical concept made real.</div>
+      <table>
+        <thead><tr><th>Day</th><th>Probability</th><th>New Data or Observation</th></tr></thead>
+        <tbody>
+          <tr><td>Day 1</td><td>50%</td><td>Baseline guess based on past experience.</td></tr>
+          <tr><td>Day 2</td><td>30%</td><td>Two coworkers already said they can't cover my shift.</td></tr>
+          <tr><td>Day 3</td><td>30%</td><td>No new messages or updates today.</td></tr>
+          <tr><td>Day 4</td><td>75%</td><td>A coworker asked what hours the shift is — seems interested!</td></tr>
+          <tr><td>Day 5</td><td>100%</td><td>The coworker officially accepted the shift transfer.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Step 4 — Video reflection</h4>
+      <p>After your event resolves (or after 7 days), post your Tracker Table and Step 1 notes, then record a <strong>2–3 minute video</strong> addressing:</p>
+      <ol>
+        <li><strong>The outcome</strong> — what happened.</li>
+        <li><strong>Decision quality</strong> — if you'd decided based only on your Day 1 probability, would it have been statistically sound even if the outcome went against you?</li>
+        <li><strong>Your thinker connection</strong> — one explicit link (Soldier Mindset? updating probabilities? a good decision with a bad outcome? System 1 taking over?).</li>
+        <li><strong>Your takeaway</strong> — one habit or question you'll carry into decisions under uncertainty.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="res">
+    <summary>
+      <div><span class="lbl">STAT C1000 · First Week · Community</span><h3>Getting to Know You — Building Our Learning Community</h3></div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="body">
+      <div class="epigraph">
+        <blockquote>Education either functions as an instrument which is used to facilitate the integration of the younger generation into the logic of the present system and bring about conformity, or it becomes the practice of freedom &mdash; the means by which men and women deal critically and creatively with reality and discover how to participate in the transformation of their world.</blockquote>
+        <cite>&mdash; <strong>Paulo Freire</strong>, <a href="https://envs.ucsc.edu/internships/internship-readings/freire-pedagogy-of-the-oppressed.pdf" target="_blank" rel="noopener"><em>Pedagogy of the Oppressed</em></a> (1970)</cite>
+      </div>
+      <div class="hsce-tie"><span class="lbl">The framework in practice</span><p>Humanizing from the very first minutes: multiple modes to share (write, audio, or video), explicit permission <em>not</em> to overshare, a private path to the instructor for anything too personal, and a peer-reply standard built around making a classmate feel <em>seen</em> — not just acknowledged. Belonging before performance.</p></div>
+
+      <h4>Purpose</h4>
+      <p>Statistics is better learned in community — with people who ask questions, share different perspectives, and cheer each other on. This assignment is our first step toward building that community. You'll introduce yourself, learn a little about your classmates, and start to feel at home in this course.</p>
+
+      <h4>Step 1: Introduce yourself</h4>
+      <p>Choose <strong>at least 3 prompts</strong> from the list below and share your responses with the class. You may respond in <strong>writing</strong> (~150 words), <strong>audio</strong>, or <strong>video</strong> (2–3 minutes). You're also welcome to include a photo.</p>
+      <div class="note blue"><span class="lbl">A note on sharing</span>Some of these prompts invite personal sharing, and I want to be clear: <strong>you are never required to share anything that feels too private or uncomfortable.</strong> If any prompt feels like more than you want to share with the class, you're welcome to respond to me directly through a Canvas message instead — or simply let me know and we'll find another way for you to participate.</div>
+      <ol>
+        <li>Why are you taking STAT C1000? How does it connect to your academic path or career plans?</li>
+        <li>Upload a photo that represents you — it can be of you, your life, a favorite place, or something meaningful — and tell us the story behind it.</li>
+        <li>Share one accomplishment you're proud of, or something that keeps you motivated when things get tough.</li>
+        <li>Tell us a little about your roots — your family, culture, community, or an important influence on who you are today.</li>
+        <li>What's one thing you hope this class will help you do or feel more confident about?</li>
+      </ol>
+
+      <h4>Step 2: Reply to two classmates</h4>
+      <p>Read or watch at least <strong>two classmates' introductions</strong> and reply to each one. A strong reply finds something you have in common ("I also…"), asks a genuine question, or offers encouragement about something they shared. Your goal is to make your classmate feel <strong>seen</strong> — not just acknowledged.</p>
+
+      <h4>Criteria for success</h4>
+      <ul>
+        <li>Post your introduction on time and respond to at least 3 prompts.</li>
+        <li>Reply meaningfully to at least two classmates.</li>
+        <li>Engage with respect and genuine curiosity.</li>
+      </ul>
+      <div class="note"><span class="lbl">Multiple ways in</span>Prefer to speak rather than type? Record a video, upload one, or use Canvas Studio for captions. Type, speak, or show your face — whatever helps you introduce yourself as you.</div>
+    </div>
+  </details>
+
+  <div class="band">
+    <strong>Want the real thing?</strong> I've uploaded all of these Canvas assignments to <strong>Canvas Commons</strong>. Search my name — <strong>Marty Romero</strong> — and you can import them into your own course and adapt them however you like.
+  </div>
+</section>
+
+<!-- FOUNDATIONS -->
+<section id="foundations">
+  <div class="kick">Foundations</div>
+  <h2 class="sec">Where the thinking comes from</h2>
+  <p class="sec-lead">Two touchstones behind the framework — one a practice, one a full open textbook.</p>
+  <div class="grid">
+    <a class="card" href="https://www.tilthighered.com/" target="_blank" rel="noopener">
+      <span class="tag">Practice</span>
+      <h3>TILT — Transparency in Learning &amp; Teaching</h3>
+      <p>Advancing equitable teaching by making the purpose, task, and criteria of assignments explicit — and by helping faculty gather and share data on student learning.</p>
+      <span class="go">Visit TILT Higher Ed</span>
+    </a>
+    <a class="card" href="https://commons.libretexts.org/book/math-157542" target="_blank" rel="noopener">
+      <span class="tag">Open Textbook</span>
+      <h3>Math for Elementary School Teachers — A Humanizing Textbook</h3>
+      <p>My open LibreTexts book — the framework applied end to end in a full course, with embedded activities, audio, and video.</p>
+      <span class="go">Open the textbook</span>
+    </a>
+  </div>
+</section>
+
+</div>
+
+<footer><div class="wrap">
+  <div class="fw">Seeds, not models.</div>
+  <p>Everything here is what happened when I asked one honest question in one context. Take what's useful; adapt the rest.</p>
+  <p style="margin-top:14px">Dr. Marty Romero · Santa Ana College · <a href="mailto:Romero_Martin@sac.edu">Romero_Martin@sac.edu</a> · Wonderings welcome.</p>
+</div></footer>
+
+</body>
+</html>
